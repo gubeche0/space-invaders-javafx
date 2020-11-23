@@ -16,13 +16,21 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
 
     @Override
     public void start() {
-        setLimH(20,Params.WINDOW_WIDTH-20);
+        setLimH(-16,Params.WINDOW_WIDTH-21);
         setLimV(Params.WINDOW_HEIGHT-100,Params.WINDOW_HEIGHT);
     }
 
     @Override
     public void Update(long deltaTime) {
-        setPosX(getX() + getDirH() * getSpeed());
+        int newPos = getX() + getDirH() * getSpeed();
+        if (newPos > getLMaxH() ) {
+            setPosX(getLMaxH());
+        } else if(newPos < getLMinH()) {
+            setPosX(getLMinH());
+        } else {
+            setPosX(newPos);
+        }
+
         if (shot_timer > 0) shot_timer -= deltaTime;
     }
 
@@ -59,7 +67,7 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
     @Override
     public void Draw(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Paint.valueOf("#FF0000"));
-        graphicsContext.fillRect(getX(), getY()+16, 32, 32);
-        graphicsContext.fillRect(getX()+8, getY()-16, 16, 48);
+        graphicsContext.fillRect(getX(), getY()+16, 32, 32); //base 
+        graphicsContext.fillRect(getX()+8, getY()-16, 16, 48); // cano
     }
 }
