@@ -2,6 +2,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import java.util.List;
 import java.util.LinkedList;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+
 
 /**
  * Handles the game lifecycle and behavior
@@ -11,6 +14,7 @@ public class Game {
     private static Game game = null;
     private Canhao canhao;
     private List<Character> activeChars;
+    private int pontos;
 
     private Game(){
     }
@@ -34,14 +38,19 @@ public class Game {
     public void Start() {
         // Repositório de personagens
         activeChars = new LinkedList<>();
+        
+        pontos = 0;
 
         // Adiciona o canhao
         canhao = new Canhao(400,550);
         activeChars.add(canhao);
 
         for(int i=0; i<5; i++){
-            activeChars.add(new Ball(100+(i*60),60+i*40));
+            // activeChars.add(new Ball(100+(i*60),60+i*40));
         }
+
+        activeChars.add(new Inimigo1(100, 270));
+        activeChars.add(new Inimigo1(10,300));
 
         for(Character c:activeChars){
             c.start();
@@ -66,8 +75,25 @@ public class Game {
     }
 
     public void Draw(GraphicsContext graphicsContext) {
+        DrawPoints(graphicsContext);
+
         for(Character c:activeChars){
             c.Draw(graphicsContext);
         }
+    }
+
+    private void DrawPoints(GraphicsContext graphicsContext) {
+        graphicsContext.setFill(Paint.valueOf("#CCCCCC"));
+        graphicsContext.fillText("Pontos: " + getPontos(), 10, 10);
+
+        System.out.println("Pontos: " + getPontos());
+    }
+
+    public int getPontos() {
+        return pontos;
+    }
+
+    public void incPontos(int pontos) {
+        this.pontos += pontos;
     }
 }

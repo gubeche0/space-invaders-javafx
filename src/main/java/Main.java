@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 /**
  * Handles window initialization and primary game setup
@@ -40,6 +41,8 @@ public class Main extends Application {
 
         // Register Game Loop
         final GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFont(new Font("Arial", 12));
+
 
         new AnimationTimer()
         {
