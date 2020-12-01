@@ -6,6 +6,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 
+
 /**
  * Handles the game lifecycle and behavior
  * @author Bernardo Copstein and Rafael Copstein
@@ -16,6 +17,7 @@ public class Game {
     private List<Character> activeChars;
     private int pontos;
     private int vidas;
+    private int fase;
 
     private Game(){
     }
@@ -34,34 +36,17 @@ public class Game {
 
     public void eliminate(Character c){
         activeChars.remove(c);
+        verifyFaseComplete();
     }
 
     public void Start() {
         // Repositório de personagens
         activeChars = new LinkedList<>();
-        
         pontos = 0;
-
         vidas = 3;
+        fase = 0;
 
-        // Adiciona o canhao
-        canhao = new Canhao(400,550);
-        activeChars.add(canhao);
-
-        for(int i=0; i<5; i++){
-            // activeChars.add(new Ball(100+(i*60),60+i*40));
-        }
-
-        activeChars.add(new Inimigo1(10, 50));
-        activeChars.add(new Inimigo1(200,50));
-        activeChars.add(new Inimigo1(400,50));
-        activeChars.add(new Inimigo1(600,50));
-
-        activeChars.add(new Inimigo2(300,100));
-
-        for(Character c:activeChars){
-            c.start();
-        }
+        nextLevel();
     }
 
     public void Update(long currentTime, long deltaTime) {
@@ -82,22 +67,59 @@ public class Game {
     }
 
     public void Draw(GraphicsContext graphicsContext) {
-        DrawPoints(graphicsContext);
-        DrawLifes(graphicsContext);
+        drawPoints(graphicsContext);
+        drawLifes(graphicsContext);
+        drawFase(graphicsContext);
+        
 
         for(Character c:activeChars){
             c.Draw(graphicsContext);
         }
     }
 
-    private void DrawPoints(GraphicsContext graphicsContext) {
+    private void drawPoints(GraphicsContext graphicsContext) {
+        graphicsContext.setFont(new Font("Arial", 20));
         graphicsContext.setFill(Paint.valueOf("#000000"));
         graphicsContext.fillText("Pontos: " + getPontos(), 10, 20);
     }
 
-    private void DrawLifes(GraphicsContext graphicsContext) {
+    private void drawLifes(GraphicsContext graphicsContext) {
+        graphicsContext.setFont(new Font("Arial", 20));
         graphicsContext.setFill(Paint.valueOf("#000000"));
         graphicsContext.fillText("Vidas: " + getVidas(), 10, 40);
+    }
+
+    private void drawFase(GraphicsContext graphicsContext) {
+        graphicsContext.setFont(new Font("Arial", 40));
+        graphicsContext.setFill(Paint.valueOf("#000000"));
+        graphicsContext.fillText(getFase().toString(), Params.WINDOW_WIDTH/2 -20, 40);
+    }
+
+    private void verifyFaseComplete() {
+        if (activeChars.stream().filter(c -> c instanceof EnemyAbstract).count() == 0) {
+            nextLevel();
+        }
+    }
+
+    private void nextLevel() {
+        fase++;
+        
+        activeChars.clear();
+
+        // Adiciona o canhao
+        canhao = new Canhao(400,550);
+        activeChars.add(canhao);
+
+        activeChars.add(new Inimigo1(10, 50));
+        activeChars.add(new Inimigo1(200,50));
+        activeChars.add(new Inimigo1(400,50));
+        activeChars.add(new Inimigo1(600,50));
+
+        activeChars.add(new Inimigo2(300,100));
+
+        for(Character c:activeChars){
+            c.start();
+        }
     }
 
     public int getPontos() {
@@ -118,5 +140,9 @@ public class Game {
 
     public void loseLife() {
         vidas--;
+    }
+
+    public Integer getFase() {
+        return fase;
     }
 }
