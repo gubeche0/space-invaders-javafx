@@ -140,6 +140,11 @@ public abstract class BasicElement implements Character{
     }
 
     @Override
+    public void setColidiu(boolean colidiu){
+        this.colidiu = colidiu;
+    }
+
+    @Override
     public  boolean isActive(){
         return(active);
     }

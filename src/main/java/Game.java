@@ -86,7 +86,6 @@ public class Game {
         graphicsContext.setFill(Paint.valueOf("#CCCCCC"));
         graphicsContext.fillText("Pontos: " + getPontos(), 10, 10);
 
-        System.out.println("Pontos: " + getPontos());
     }
 
     public int getPontos() {
