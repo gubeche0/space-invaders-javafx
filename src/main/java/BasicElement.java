@@ -40,9 +40,9 @@ public abstract class BasicElement implements Character{
     }
 
     @Override
-    public void testaColisao(Character outro){
+    public boolean testaColisao(Character outro){
         if (colidiu){
-            return;
+            return false;
         }
         // Monta pontos
         int p1x = this.getX();
@@ -58,7 +58,10 @@ public abstract class BasicElement implements Character{
         // Verifica colisão
         if (p1x < op2x && p2x > op1x && p1y < op2y && p2y > op1y){
             colidiu = true;
+            return true;
         }
+
+        return false;
     }
 
     public int getDirH(){

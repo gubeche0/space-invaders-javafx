@@ -10,7 +10,7 @@ public interface Character {
     int getAltura();
     int getLargura();
 
-    void testaColisao(Character c);
+    boolean testaColisao(Character c);
     boolean jaColidiu();
     void setColidiu();
     void setColidiu(boolean colidiu);

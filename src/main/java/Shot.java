@@ -17,12 +17,12 @@ public class Shot extends BasicElement{
     }
 
     @Override
-    public void testaColisao(Character outro){
+    public boolean testaColisao(Character outro){
         // Não verifica colisão de um tiro com outro tiro
         if (outro instanceof Shot){
-            return;
+            return false;
         }else{
-            super.testaColisao(outro);
+            return super.testaColisao(outro);
         }
     }
 

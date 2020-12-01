@@ -70,6 +70,10 @@ public class Game {
         drawPoints(graphicsContext);
         drawLifes(graphicsContext);
         drawFase(graphicsContext);
+
+        if (perdeu()) {
+            drawGameOver(graphicsContext);
+        }
         
 
         for(Character c:activeChars){
@@ -92,7 +96,13 @@ public class Game {
     private void drawFase(GraphicsContext graphicsContext) {
         graphicsContext.setFont(new Font("Arial", 40));
         graphicsContext.setFill(Paint.valueOf("#000000"));
-        graphicsContext.fillText(getFase().toString(), Params.WINDOW_WIDTH/2 -20, 40);
+        graphicsContext.fillText("Level: " + getFase(), Params.WINDOW_WIDTH/2 -60, perdeu()? 80: 40);
+    }
+
+    private void drawGameOver(GraphicsContext graphicsContext) {
+        graphicsContext.setFont(new Font("Arial", 40));
+        graphicsContext.setFill(Paint.valueOf("#000000"));
+        graphicsContext.fillText("Gamer Over", 280, 40);
     }
 
     private void verifyFaseComplete() {
@@ -102,6 +112,9 @@ public class Game {
     }
 
     private void nextLevel() {
+        if (perdeu()) {
+            return;
+        }
         fase++;
         
         activeChars.clear();
@@ -110,12 +123,13 @@ public class Game {
         canhao = new Canhao(400,550);
         activeChars.add(canhao);
 
-        activeChars.add(new Inimigo1(10, 50));
-        activeChars.add(new Inimigo1(200,50));
+        // activeChars.add(new Inimigo1(10, 50));
+        // activeChars.add(new Inimigo1(200,50));
         activeChars.add(new Inimigo1(400,50));
         activeChars.add(new Inimigo1(600,50));
 
-        activeChars.add(new Inimigo2(300,100));
+        activeChars.add(new Inimigo2(300,500));
+        activeChars.add(new Inimigo2(200,500));
 
         for(Character c:activeChars){
             c.start();
@@ -140,6 +154,14 @@ public class Game {
 
     public void loseLife() {
         vidas--;
+
+        if (perdeu()) {
+            activeChars.clear();            
+        }
+    }
+
+    public boolean perdeu() {
+        return vidas <= 0;
     }
 
     public Integer getFase() {

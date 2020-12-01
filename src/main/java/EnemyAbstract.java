@@ -19,7 +19,6 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
 
     protected void createImage() {
         try{
-            System.out.println(imageSrc);
             image =  new Image(imageSrc,0,40,true,true);
             
         }catch(Exception e){
@@ -40,8 +39,10 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
         if (jaColidiu()){
             if (vidas > 1) {
                 vidas--;
+                System.out.println("Perdeu uma vida. " + vidas);
                 setColidiu(false);
             } else {
+                System.out.println("Perdeu todas vida. " + vidas);
                 deactivate();
                 return;
             }
@@ -76,8 +77,6 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
 
         updateVelocidade();
 
-        
-
         // Mover as bolas para baixo
         // if (getY() < 450) {
         setPosY(getY() + 45);
@@ -98,11 +97,20 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
     }
 
     @Override
-    public void testaColisao(Character outro){
+    public boolean testaColisao(Character outro){
         if (outro instanceof EnemyAbstract){
-            return;
+            return false;
         }else{
-            super.testaColisao(outro);
+            boolean colidiu = super.testaColisao(outro);
+            if (colidiu && outro instanceof Canhao) {
+                // Se for canhao o inimigo é destruido náo importando quantas vidas possui
+                deactivate();
+                Game.getInstance().loseLife();
+            } else if (colidiu && outro instanceof Shot) {
+                BasicElement el = (Shot) outro;
+                el.deactivate();
+            }
+            return colidiu;
         }
     }
 
