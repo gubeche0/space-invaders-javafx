@@ -10,6 +10,6 @@ public class Inimigo1 extends EnemyAbstract implements DestructionPointsInterfac
         super(px,py);
         
         setVidas(1);
-        setImage("Inimigo3.png");
+        setImage("Inimigo1.jpg");
     }
 }

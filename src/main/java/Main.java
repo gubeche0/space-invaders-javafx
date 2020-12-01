@@ -41,7 +41,7 @@ public class Main extends Application {
 
         // Register Game Loop
         final GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFont(new Font("Arial", 12));
+        gc.setFont(new Font("Arial", 20));
 
 
         new AnimationTimer()

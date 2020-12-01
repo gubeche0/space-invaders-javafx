@@ -15,6 +15,7 @@ public class Game {
     private Canhao canhao;
     private List<Character> activeChars;
     private int pontos;
+    private int vidas;
 
     private Game(){
     }
@@ -40,6 +41,8 @@ public class Game {
         activeChars = new LinkedList<>();
         
         pontos = 0;
+
+        vidas = 3;
 
         // Adiciona o canhao
         canhao = new Canhao(400,550);
@@ -76,6 +79,7 @@ public class Game {
 
     public void Draw(GraphicsContext graphicsContext) {
         DrawPoints(graphicsContext);
+        DrawLifes(graphicsContext);
 
         for(Character c:activeChars){
             c.Draw(graphicsContext);
@@ -83,9 +87,13 @@ public class Game {
     }
 
     private void DrawPoints(GraphicsContext graphicsContext) {
-        graphicsContext.setFill(Paint.valueOf("#CCCCCC"));
-        graphicsContext.fillText("Pontos: " + getPontos(), 10, 10);
+        graphicsContext.setFill(Paint.valueOf("#000000"));
+        graphicsContext.fillText("Pontos: " + getPontos(), 10, 20);
+    }
 
+    private void DrawLifes(GraphicsContext graphicsContext) {
+        graphicsContext.setFill(Paint.valueOf("#000000"));
+        graphicsContext.fillText("Vidas: " + getVidas(), 10, 40);
     }
 
     public int getPontos() {
@@ -94,5 +102,17 @@ public class Game {
 
     public void incPontos(int pontos) {
         this.pontos += pontos;
+    }
+
+    public int getVidas() {
+        return vidas;
+    }
+
+    public boolean isAlive() {
+        return vidas >= 1;
+    }
+
+    public void loseLife() {
+        vidas--;
     }
 }

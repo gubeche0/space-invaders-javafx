@@ -22,6 +22,8 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
 
     @Override
     public void Update(long deltaTime) {
+        testaColidiu();
+
         int newPos = getX() + getDirH() * getSpeed();
         if (newPos > getLMaxH() ) {
             setPosX(getLMaxH());
@@ -32,6 +34,13 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
         }
 
         if (shot_timer > 0) shot_timer -= deltaTime;
+    }
+    
+    public void testaColidiu() {
+        if (jaColidiu()){
+            Game.getInstance().loseLife();
+            setColidiu(false);
+        }
     }
 
     @Override

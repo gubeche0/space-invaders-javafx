@@ -65,6 +65,11 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
             setPosY(getY() + 45);
             // }
         }
+
+        if (getY() >= getLMaxV() - getAltura()) {
+            Game.getInstance().loseLife();
+            deactivate();
+        }
     }
 
     public void updateVelocidade() {
