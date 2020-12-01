@@ -10,6 +10,7 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
     private Image image;
     private String imageSrc = "Inimigo1.jpg";
     private int vidas = 2;
+    protected int pointsBaseOnDestruction = 50;
 
     public EnemyAbstract(int px,int py){
         super(px,py);
@@ -47,23 +48,15 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
         }
         setPosX(getX() + getDirH() * getSpeed());
         // Se chegou na borda da tela...
-        if (getX() >= getLMaxH() || getX() < getLMinH()){
-            // Inverte a direção
-            setDirH(getDirH()*-1);
-
-            updateVelocidade();
-
+        if (getX() >= getLMaxH() - getLargura() || getX() < getLMinH()){
+            OnExitScreen();
+            
             // Posiciona inimigo na borda da tela para impedir que saia da tela
             if (getX() < getLMinH()) {
                 setPosX(getLMinH());
-            } else {
-                setPosX(getLMaxH());
+            } else if (getX() >= getLMaxH() - getLargura()){
+                setPosX(getLMaxH() - getLargura());
             }
-
-            // Mover as bolas para baixo
-            // if (getY() < 450) {
-            setPosY(getY() + 45);
-            // }
         }
 
         if (getY() >= getLMaxV() - getAltura()) {
@@ -74,12 +67,29 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
 
     public void updateVelocidade() {
         // Sorteia o passo de avanço [1,5]
-        setSpeed(Params.getInstance().nextInt(5)+1);
+        // setSpeed(Params.getInstance().nextInt(5)+1);
     }
+
+    public void OnExitScreen() {
+        // Inverte a direção
+        setDirH(getDirH()*-1);
+
+        updateVelocidade();
+
+        
+
+        // Mover as bolas para baixo
+        // if (getY() < 450) {
+        setPosY(getY() + 45);
+        // }
+    }
+
+    
+    
 
     @Override
     public int getPointsDestruction() {
-        return 50;
+        return pointsBaseOnDestruction;
     }
 
     @Override

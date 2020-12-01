@@ -52,8 +52,12 @@ public class Game {
             // activeChars.add(new Ball(100+(i*60),60+i*40));
         }
 
-        activeChars.add(new Inimigo1(100, 270));
-        activeChars.add(new Inimigo1(10,300));
+        activeChars.add(new Inimigo1(10, 50));
+        activeChars.add(new Inimigo1(200,50));
+        activeChars.add(new Inimigo1(400,50));
+        activeChars.add(new Inimigo1(600,50));
+
+        activeChars.add(new Inimigo2(300,100));
 
         for(Character c:activeChars){
             c.start();

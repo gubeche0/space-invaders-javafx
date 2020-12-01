@@ -11,5 +11,15 @@ public class Inimigo1 extends EnemyAbstract implements DestructionPointsInterfac
         
         setVidas(1);
         setImage("Inimigo1.jpg");
+        pointsBaseOnDestruction = 50;
+    }
+
+    @Override
+    public void OnExitScreen() {
+        // setDirH(getDirH()*-1);
+        setPosX(0);
+        // setPosX(getLMinH());
+
+        return;
     }
 }
