@@ -11,7 +11,7 @@ public class Inimigo1 extends EnemyAbstract implements DestructionPointsInterfac
         
         setVidas(1);
         setImage("Inimigo1.jpg");
-        pointsBaseOnDestruction = 50;
+        pointsBaseOnDestruction = 10;
     }
 
     @Override

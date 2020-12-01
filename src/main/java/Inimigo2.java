@@ -11,6 +11,6 @@ public class Inimigo2 extends EnemyAbstract implements DestructionPointsInterfac
         
         setVidas(2);
         setImage("Inimigo2.png");
-        pointsBaseOnDestruction = 70;
+        pointsBaseOnDestruction = 50;
     }
 }
