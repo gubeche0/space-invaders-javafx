@@ -103,7 +103,7 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
             boolean colidiu = super.testaColisao(outro);
             if (colidiu && outro instanceof Canhao) {
                 // Se for canhao o inimigo é destruido náo importando quantas vidas possui
-                deactivate();
+                setVidas(1);
             } else if (colidiu && outro instanceof Shot) {
                 BasicElement el = (Shot) outro;
                 el.deactivate();
