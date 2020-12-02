@@ -123,17 +123,7 @@ public class Game {
         canhao = new Canhao(400,550);
         activeChars.add(canhao);
 
-        // activeChars.add(new Inimigo1(10, 50));
-        // activeChars.add(new Inimigo1(200,50));
-        activeChars.add(new Inimigo1(400,50));
-        activeChars.add(new Inimigo1(600,50));
-
-        activeChars.add(new Inimigo2(300,300));
-        activeChars.add(new Inimigo2(200,300));
-
-        activeChars.add(new Inimigo3(200,100));
-
-        activeChars.add(new Inimigo4(400,100));
+        insereInimigos();
 
         for(Character c:activeChars){
             c.start();
@@ -174,5 +164,62 @@ public class Game {
 
     public Integer getFase() {
         return fase;
+    }
+
+    private void insereInimigos() {
+        if (getFase() == 1) level1();
+        if (getFase() == 2) level2();
+        if (getFase() == 3) level3();
+        if (getFase() == 4) level4();
+        if (fase >= 5){
+            level5();
+        }
+    }
+
+    private void level1() {
+        activeChars.add(new Inimigo1(0, 50));
+        activeChars.add(new Inimigo1(200,50));
+        activeChars.add(new Inimigo1(400,50));
+        activeChars.add(new Inimigo1(600,50));
+    }
+
+    private void level2() {
+        level1();
+
+        activeChars.add(new Inimigo2(0,200));
+        activeChars.add(new Inimigo2(200,200));
+        activeChars.add(new Inimigo2(400,200));
+        activeChars.add(new Inimigo2(600,200));
+    }
+
+    private void level3() {
+        level1();
+
+        activeChars.add(new Inimigo2(0,200));
+        activeChars.add(new Inimigo3(200,200));
+        activeChars.add(new Inimigo2(400,200));
+        activeChars.add(new Inimigo3(600,200));
+    }
+
+    private void level4() {
+        level1();
+
+        activeChars.add(new Inimigo2(0,200));
+        activeChars.add(new Inimigo4(200,200));
+        activeChars.add(new Inimigo2(400,200));
+        activeChars.add(new Inimigo4(600,200));
+    }
+
+    private void level5() {
+        level1();
+
+        activeChars.add(new Inimigo2(0,200));
+        activeChars.add(new Inimigo3(200,200));
+        activeChars.add(new Inimigo2(400,200));
+        activeChars.add(new Inimigo4(600,200));
+
+        activeChars.add(new Inimigo2(100,300));
+        activeChars.add(new Inimigo2(300,300));
+        activeChars.add(new Inimigo2(500,300));
     }
 }
