@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
  * @author Gustavo Beche Lopes - 20106594
  */
 public class Inimigo3 extends EnemyAbstract implements DestructionPointsInterface{
-    private double RELOAD_TIME = 2000000000; // Time is in nanoseconds
-    private double shot_timer = 0;
+    protected double RELOAD_TIME = 2000000000; // Time is in nanoseconds
+    protected double shot_timer = 0;
 
     public Inimigo3(int px,int py){
         super(px,py);
@@ -33,7 +33,7 @@ public class Inimigo3 extends EnemyAbstract implements DestructionPointsInterfac
     }
 
     public void getRandoDelayReloadTIme() {
-        RELOAD_TIME = 1500000000 - ((Params.getInstance().nextInt(5)+1) * 100000000) 
+        RELOAD_TIME = 2000000000 - ((Params.getInstance().nextInt(5)+1) * 100000000) 
             - (Game.getInstance().getFase() * 0.15) * 1000000000;
 
 
@@ -41,6 +41,5 @@ public class Inimigo3 extends EnemyAbstract implements DestructionPointsInterfac
             RELOAD_TIME = 250000000;
             System.out.println("Velocidade de tiro minimo alcando. fase: " + Game.getInstance().getFase());
         }
-
     }
 }
