@@ -12,6 +12,7 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
 
     public Canhao(int px,int py){
         super(px,py);
+        setSpeed(3);
     }
 
     @Override
@@ -22,6 +23,11 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
 
     @Override
     public void Update(long deltaTime) {
+        if (jaColidiu()) {
+            Game.getInstance().loseLife();
+            setColidiu(false);
+        }
+
         int newPos = getX() + getDirH() * getSpeed();
         if (newPos > getLMaxH() ) {
             setPosX(getLMaxH());
@@ -50,7 +56,15 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
                 shot_timer = RELOAD_TIME;
             }
         }
-        //if (keyCode == KeyCode.UP) do nothing
+        if (keyCode == KeyCode.U && !isPressed) {
+            // Tecla de debug para passar de level
+            Game.getInstance().nextLevel();
+        }
+
+        if (keyCode == KeyCode.L && !isPressed) {
+            // Tecla de debug para ganhar uma vida
+            Game.getInstance().winLife();
+        }
         //if (keyCode == KeyCode.DOWN) do nothing
     }
 
@@ -69,5 +83,15 @@ public class Canhao extends BasicElement implements KeyboardCtrl{
         graphicsContext.setFill(Paint.valueOf("#FF0000"));
         graphicsContext.fillRect(getX(), getY()+16, 32, 32); //base 
         graphicsContext.fillRect(getX()+8, getY()-16, 16, 48); // cano
+    }
+
+    @Override
+    public boolean testaColisao(Character outro){
+        // Não verifica colisão de um tiro com outro tiro
+        if (outro instanceof Shot && !(outro instanceof ShotEnemy)){
+            return false;
+        }else{
+            return super.testaColisao(outro);
+        }
     }
 }

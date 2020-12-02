@@ -111,7 +111,7 @@ public class Game {
         }
     }
 
-    private void nextLevel() {
+    public void nextLevel() {
         if (perdeu()) {
             return;
         }
@@ -128,8 +128,10 @@ public class Game {
         activeChars.add(new Inimigo1(400,50));
         activeChars.add(new Inimigo1(600,50));
 
-        activeChars.add(new Inimigo2(300,500));
-        activeChars.add(new Inimigo2(200,500));
+        activeChars.add(new Inimigo2(300,300));
+        activeChars.add(new Inimigo2(200,300));
+
+        activeChars.add(new Inimigo3(200,100));
 
         for(Character c:activeChars){
             c.start();
@@ -158,6 +160,10 @@ public class Game {
         if (perdeu()) {
             activeChars.clear();            
         }
+    }
+
+    public void winLife() {
+        vidas++;
     }
 
     public boolean perdeu() {

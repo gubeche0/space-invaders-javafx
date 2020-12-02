@@ -14,12 +14,14 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
 
     public EnemyAbstract(int px,int py){
         super(px,py);
+        setLargAlt(50, 40);
 
+        setSpeed(2 + Game.getInstance().getFase() / 5);
     }
 
     protected void createImage() {
         try{
-            image =  new Image(imageSrc,0,40,true,true);
+            image =  new Image(imageSrc,getLargura(),getAltura(),true,true);
             
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -83,9 +85,6 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
         // }
     }
 
-    
-    
-
     @Override
     public int getPointsDestruction() {
         return pointsBaseOnDestruction;
@@ -98,14 +97,13 @@ abstract class EnemyAbstract extends BasicElement implements DestructionPointsIn
 
     @Override
     public boolean testaColisao(Character outro){
-        if (outro instanceof EnemyAbstract){
+        if (outro instanceof EnemyAbstract || outro instanceof ShotEnemy){
             return false;
         }else{
             boolean colidiu = super.testaColisao(outro);
             if (colidiu && outro instanceof Canhao) {
                 // Se for canhao o inimigo é destruido náo importando quantas vidas possui
                 deactivate();
-                Game.getInstance().loseLife();
             } else if (colidiu && outro instanceof Shot) {
                 BasicElement el = (Shot) outro;
                 el.deactivate();

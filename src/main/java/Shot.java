@@ -33,7 +33,7 @@ public class Shot extends BasicElement{
         }else{
             setPosY(getY() + getDirV() * getSpeed());
             // Se chegou na parte superior da tela ...
-            if (getY() <= getLMinV()){
+            if (getY() <= getLMinV() || getY() > getLMaxV()){
                 // Desaparece
                 deactivate();
             }
