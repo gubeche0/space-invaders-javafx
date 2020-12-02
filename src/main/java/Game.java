@@ -133,6 +133,8 @@ public class Game {
 
         activeChars.add(new Inimigo3(200,100));
 
+        activeChars.add(new Inimigo4(400,100));
+
         for(Character c:activeChars){
             c.start();
         }
